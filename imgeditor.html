@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN" dropEffect="none" class="no-js ">
+<head>
+  <meta charset="utf-8">
+  <title>图片编辑器</title>
+  
+  <style>
+  img{
+    width: 100%;
+  }
+  
+  input {
+    height: 35px;
+    width: 300px;
+    font-size: 20px;
+  }
+  
+  #view{
+    width: 500px;
+    height: 500px;
+    position: relative;
+  }
+  
+  #logo{
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-image: url(images/logo.jpg);
+    background-repeat: no-repeat;
+    background-size: 100%;
+  }
+  
+  #right1{
+    position: absolute;
+    right: 0px;
+    color: #59D9DF;
+    font-size: 35px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #5581AD;
+  }
+  
+  #phone{
+    position: absolute;
+    top: 100px;
+    left: -120px;
+    width: 400px;
+    z-index: -10;
+    /* background-image: url(images/iphone7.jpg); */
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 400px; 
+  }
+  
+  #right2{
+    position: absolute;
+    text-align: center;
+    top: 135px;
+    left: 250px;
+    width: 250px;
+    overflow: hidden;
+  }
+  
+  #right21{
+    font-size: 20px;
+    margin-bottom: 20px;
+    height: 20px;
+    line-height: 20px;
+    overflow: hidden;
+    font-weight: bold;
+  }
+  
+  #right22{
+    font-size: 23px;
+    height: 23px;
+    line-height: 23px;
+    margin-bottom: 25px;
+    overflow: hidden;
+    font-weight: bold;
+  }
+  
+  #right23{
+    font-size: 28px;
+    height: 28px;
+    line-height: 28px;
+    color: red;
+    overflow: hidden;
+    font-weight: bold;
+  }
+  
+  #right3{
+    position: absolute;
+    text-align: center;
+    top: 380px;
+    left: 250px;
+    width: 250px;
+    overflow: hidden;
+    color: rgb(37, 199, 37);
+    font-size: 27px;
+    line-height: 36px;
+    height: 72px;
+    text-shadow: 1px 1px 3px;
+  }
+  
+  #slogan{
+    position: absolute;
+    top: 285px;
+    width: 500px;
+    text-align: center;
+    overflow: hidden;
+    font-size: 53px;
+    padding: 5px 0px;
+    background: rgba(255, 0, 0, 0.8);
+    color: #fff;
+  }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+    <div id="view">
+      <div id="logo">
+        <!-- <img src="images/logo.jpg"> -->
+      </div>  <!-- 左上logo -->
+      
+      <div id="right1">
+        全国联保
+      </div>  <!-- 右上说明 -->
+      
+      <div id="phone" v-bind:style="{ backgroundImage: 'url(' + imgurl + ')' }">
+        <!-- <img v-bind:src="imgsrc"> -->
+      </div>  <!-- 手机图片 -->
+      
+      <div id="right2">
+        <div id="right21">{{ right21 }}</div>
+        <div id="right22">{{ right22 }}</div>
+        <div id="right23">{{ right23 }}</div>
+      </div>  <!-- 右上说明 -->
+      
+      <div id="right3">
+        <div>南京实体店</div>
+        <div>购机到店可免费贴膜</div>
+      </div>  <!-- 右下说明 -->
+      
+      <div id="slogan">
+        原封国行 顺丰包邮
+      </div>  <!-- 红色大字 -->
+      
+    </div>  <!-- 图片主体 -->
+
+    
+    <div id="control">
+      <div>
+        <br><br>
+        <input v-model="right21">右上第1行  <br><br>
+        <input v-model="right22">右上第2行  <br><br>
+        <input v-model="right23">右上第3行  <br><br>
+      </div>  <!-- 右上文字 -->
+      <div></div>  <!-- 右下文字 -->
+      <div></div>  <!-- 红底文字 -->
+      <div>
+        <input v-model="imgurl">手机图片地址  <br><br>
+      </div>  <!-- 手机图片地址 -->
+      <div>
+        <input type="button" onclick="turnToimg()" value="转换图片">
+      </div>  <!-- 其他 -->
+    </div>  <!-- 控制区 -->
+  </div>
+  
+  <div id="id2"></div>
+  
+  <script src="js/jquery.js"></script>
+  <script src="js/vue.js"></script>
+  <script src="js/html2canvas.js"></script>
+  <script>
+    new Vue({
+      el: '#app',
+      data: {
+        right21: '苹果iPhone SE/6S/6SPlus',
+        right22: '全网通智能手机',
+        right23: '特价顺丰包邮',
+        imgurl: 'images/荣耀8.jpg'
+      }
+    })
+  </script>
+  <script>
+    function turnToimg(){
+      html2canvas(document.getElementById("view"), { 
+      onrendered: function(canvas) { 
+      document.getElementById("id2").appendChild(canvas);//生成画布后如何处理，当然可以在新标签打开，在浮层展示等等
+      console.log(canvas)
+      qqqqq=canvas
+      }, 
+      canvas_id: 'canvas'//通过修改html2canvas源码添加canvas的id 
+      });
+    }
+  </script>
+</body>
+</html>
